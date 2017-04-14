@@ -8,10 +8,13 @@ public abstract class Image {
 
     public Image() {
         Id = UUID.randomUUID();
+        UserId = null;
         Picture = null;
     }
 
     protected UUID Id;
+
+    protected UUID UserId;
 
     protected Bitmap Picture;
 
@@ -21,6 +24,10 @@ public abstract class Image {
 
     public Bitmap GetPicture() {
         return Picture;
+    }
+
+    public void SetUserId(UUID userId) {
+        UserId = userId;
     }
 
 }
