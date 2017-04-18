@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AndroidProject</string>
+    <string name="clarifai_id">FWeQQoe07tEygp1-k_E5aAcV-kxFl9h31SU4ja-G</string>
+    <string name="clarifai_secret">Ljk-ErDJVHP9XcxXrj6eDx_1NxAdGXIJFwgccNWm</string>
 </resources>
