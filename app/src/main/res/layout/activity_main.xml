@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.androidproject.androidproject.MainActivity">
-    
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,11 +16,12 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/holo_blue_light"
             android:layout_margin="1dp"
-            android:orientation="vertical"
-            android:clickable="true">
+            android:layout_weight="1"
+            android:background="#8bd276"
+            android:clickable="true"
+            android:onClick="LaunchTakePicture"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -55,7 +56,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="casual"
+                    android:fontFamily="sans-serif-smallcaps"
                     android:text="Take Picture"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
@@ -69,17 +70,18 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#a4cd2f"
-            android:gravity="center"
             android:layout_margin="1dp"
-            android:orientation="vertical"
-            android:clickable="true">
+            android:layout_weight="1"
+            android:background="#f58db6"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="LaunchBrowsePicture"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
+                android:layout_weight="3"
                 android:gravity="center"
                 android:weightSum="1">
 
@@ -102,14 +104,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:background="#33000000"
                 android:gravity="center">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="casual"
+                    android:fontFamily="sans-serif-smallcaps"
                     android:text="Browse Picture"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
@@ -131,10 +133,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@android:color/holo_blue_light"
+            android:background="#7086f1"
             android:layout_margin="1dp"
             android:orientation="vertical"
-            android:clickable="true">
+            android:clickable="true"
+            android:onClick="LaunchRandomPicture">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -146,13 +149,13 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.4">
+                    android:layout_weight="0.5">
 
                     <ImageView
                         android:id="@+id/imageView4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_camera" />
+                        android:src="@mipmap/ic_dice" />
 
                 </RelativeLayout>
 
@@ -163,14 +166,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="#33FFFFFF"
+                android:background="#33000000"
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="casual"
-                    android:text="Take Picture"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="Random Picture"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -184,29 +188,30 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@android:color/holo_blue_light"
+            android:background="#F8BA69"
             android:gravity="center"
             android:layout_margin="1dp"
             android:orientation="vertical"
-            android:clickable="true">
+            android:clickable="true"
+            android:onClick="LaunchQuiz">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
+                android:layout_weight="3"
                 android:gravity="center"
                 android:weightSum="1">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.4">
+                    android:layout_weight="0.5">
 
                     <ImageView
                         android:id="@+id/imageView5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_camera" />
+                        android:src="@mipmap/ic_quiz" />
 
                 </RelativeLayout>
 
@@ -216,15 +221,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
-                android:background="#33FFFFFF"
+                android:layout_weight="1"
+                android:background="#33000000"
                 android:gravity="center">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="casual"
-                    android:text="Browse Picture"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="Quiz"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -244,11 +249,12 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/holo_blue_light"
             android:layout_margin="1dp"
-            android:orientation="vertical"
-            android:clickable="true">
+            android:layout_weight="1"
+            android:background="#FF7251"
+            android:clickable="true"
+            android:onClick="LaunchProfile"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -260,13 +266,13 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.4">
+                    android:layout_weight="0.5">
 
                     <ImageView
                         android:id="@+id/imageView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_camera" />
+                        android:src="@mipmap/ic_settings" />
 
                 </RelativeLayout>
 
@@ -277,14 +283,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="#33FFFFFF"
+                android:background="#33000000"
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="casual"
-                    android:text="Take Picture"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="Settings"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -298,29 +305,30 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@android:color/holo_blue_light"
+            android:background="#7CCBFF"
             android:gravity="center"
             android:layout_margin="1dp"
             android:orientation="vertical"
-            android:clickable="true">
+            android:clickable="true"
+            android:onClick="LaunchSettings">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
+                android:layout_weight="3"
                 android:gravity="center"
                 android:weightSum="1">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.4">
+                    android:layout_weight="0.5">
 
                     <ImageView
                         android:id="@+id/imageView1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_camera" />
+                        android:src="@mipmap/ic_profile" />
 
                 </RelativeLayout>
 
@@ -330,15 +338,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
-                android:background="#33FFFFFF"
+                android:layout_weight="1"
+                android:background="#33000000"
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="casual"
-                    android:text="Browse Picture"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="Profile"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
