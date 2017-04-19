@@ -28,5 +28,6 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     compile 'com.clarifai.clarifai-api2:core:2.2.6'
+    compile 'com.theartofdev.edmodo:android-image-cropper:2.4.0'
     testCompile 'junit:junit:4.12'
 }
