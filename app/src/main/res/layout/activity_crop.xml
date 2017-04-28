@@ -65,11 +65,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_add_poi"
-            android:layout_marginLeft="15dp"
-            android:layout_marginBottom="16dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_margin="15dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/TakePic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_camera"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_above="@id/AddPOI" />
 
     </RelativeLayout>
 
