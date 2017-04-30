@@ -53,30 +53,31 @@
 
         <ImageView
             android:id="@+id/Image"
-            android:background="#e4b4b4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:background="#e4b4b4" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/AddPOI"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_add_poi"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="15dp" />
+            android:layout_margin="15dp"
+            android:src="@mipmap/ic_add_poi" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/TakePic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_camera"
-            android:layout_marginRight="15dp"
+            android:layout_above="@id/AddPOI"
             android:layout_alignParentRight="true"
-            android:layout_above="@id/AddPOI" />
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/ic_camera" />
 
     </RelativeLayout>
 

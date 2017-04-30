@@ -24,7 +24,8 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".QuizActivity" />
         <activity android:name=".RandomActivity" />
-
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
