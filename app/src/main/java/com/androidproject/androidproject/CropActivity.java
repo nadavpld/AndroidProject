@@ -132,7 +132,9 @@ public class CropActivity extends AppCompatActivity {
         //Attach the canvas to the ImageView
         ImageV.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
         //Saving the updated bitmap
+        Bitmap prevBitmap = bitmap;
         bitmap = tempBitmap;
+        prevBitmap.recycle();
     }
 
     private void SaveCroppedImage(Uri uri, float[] points) {
