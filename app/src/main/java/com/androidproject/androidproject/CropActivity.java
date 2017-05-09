@@ -127,7 +127,6 @@ public class CropActivity extends AppCompatActivity {
         //Draw the image bitmap into the cavas
         tempCanvas.drawBitmap(bitmap, 0, 0, null);
         //Draw everything else you want into the canvas, in this example a rectangle with rounded edges
-        //tempCanvas.drawRoundRect(new RectF(points[0], points[1], points[4], points[5]), 2, 2, paint);
         tempCanvas.drawRect(new RectF(points[0], points[1], points[4], points[5]), paint);
         //Attach the canvas to the ImageView
         ImageV.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
@@ -162,15 +161,15 @@ public class CropActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Pair<Coordinate, Bitmap>... params) {
             Pair<Coordinate, Bitmap> p = params[0];
-//            ClarifaiHttpClient client = new ClarifaiHttpClient(getApplicationContext());
-//            String translation = null;
-//            try {
-//                translation = client.POST(p.second);
-//            } catch (IOException e) {
-//                //TODO open snackbar with error
-//            }
-//            AddTranslationToLayout(p.first, translation);
-            TranslationThread translationThread = new TranslationThread(CropActivity.this, p.first , p.second, "Nadav");
+            ClarifaiHttpClient client = new ClarifaiHttpClient(getApplicationContext());
+            String translation = null;
+            try {
+                translation = client.POST(p.second);
+            } catch (IOException e) {
+                //TODO open snackbar with error
+            }
+            //TranslationThread translationThread = new TranslationThread(CropActivity.this, p.first , p.second, "Nadav");
+            TranslationThread translationThread = new TranslationThread(CropActivity.this, p.first , p.second, translation);
             runOnUiThread(translationThread);
             return null;
         }

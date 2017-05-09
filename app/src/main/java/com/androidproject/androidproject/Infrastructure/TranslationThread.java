@@ -1,25 +1,16 @@
 package com.androidproject.androidproject.Infrastructure;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidproject.androidproject.Common.Coordinate;
 import com.androidproject.androidproject.R;
-
-/**
- * Created by Emma Portin on 03-May-17.
- */
 
 public class TranslationThread implements Runnable {
 
@@ -47,12 +38,8 @@ public class TranslationThread implements Runnable {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         Drawable drawable = imageView.getDrawable();
-//you should call after the bitmap drawn
-        Rect bounds = drawable.getBounds();
-        int bitmapWidth = drawable.getIntrinsicWidth(); //this is the bitmap's width
-        int bitmapHeight = drawable.getIntrinsicHeight(); //this is the bitmap's height
-        //int w = bitmap.getScaledWidth(displayMetrics);
-        //int h = bitmap.getScaledHeight(displayMetrics);
+        int bitmapWidth = drawable.getIntrinsicWidth();
+        int bitmapHeight = drawable.getIntrinsicHeight();
         int imagew = imageView.getWidth();
         int imageh = imageView.getHeight();
         float wratio = bitmapWidth / (float) imagew;
