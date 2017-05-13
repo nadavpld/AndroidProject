@@ -4,81 +4,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5"
-        android:background="#b4b4b4"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Choose Objects"
-            android:textColor="@android:color/white"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:text="0"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Selected"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
     <RelativeLayout
         android:id="@+id/ImageLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10">
+        android:layout_weight="16">
 
         <ImageView
             android:id="@+id/Image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:scaleType="fitXY"
             android:layout_alignParentTop="true"
-            android:background="#e4b4b4"
-            android:scaleType="fitXY" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/AddPOI"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="15dp"
-            android:src="@mipmap/ic_add_poi" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/TakePic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/AddPOI"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:src="@mipmap/ic_camera" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 
@@ -87,18 +26,87 @@
         android:id="@+id/Translate"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
-        android:background="#c94e4e"
-        android:gravity="center">
+        android:layout_weight="2"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Translate"
-            android:textColor="@android:color/white"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/chooseObject"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ECF0F1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_crop" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-8dp"
+                android:text="Choose"
+                android:textColor="#16a085"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:background="#16a085"
+            android:gravity="center">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Translate"
+                android:gravity="center"
+                android:textColor="#ECF0F1"
+                android:textSize="28sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0 Selected"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="#ECF0F1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/retakeImage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ECF0F1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_add_photo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Retake"
+                android:textColor="#16a085"
+                android:layout_marginTop="-8dp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

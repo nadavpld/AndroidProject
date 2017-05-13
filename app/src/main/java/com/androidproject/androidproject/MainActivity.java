@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     imageFile = createImageFile();
                 } catch (IOException e) {
                     Log.d("Error : ", e.getMessage());
+                    return;
                 }
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(

@@ -33,16 +33,35 @@ public class ClarifaiHttpClient {
 
     //POST network request
     public String POST(Bitmap image) throws IOException {
-        final ConceptModel generalModel = Client.getDefaultModels().generalModel();
+        ConceptModel model = Client.getDefaultModels().apparelModel();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] byteArray = stream.toByteArray();
         // Use this model to predict, with the image that the user just selected as the input
-        ClarifaiResponse<List<ClarifaiOutput<Concept>>> Response = generalModel.predict()
-                .withInputs(ClarifaiInput.forImage(ClarifaiImage.of("https://images-na.ssl-images-amazon.com/images/I/814dF6jfIoL._SL1500_.jpg")))
+        ClarifaiResponse<List<ClarifaiOutput<Concept>>> Response = model.predict()
+                .withInputs(ClarifaiInput.forImage(ClarifaiImage.of(byteArray)))
                 .executeSync();
         List<ClarifaiOutput<Concept>> predictions = Response.get();
         Concept concept = predictions.get(0).data().get(0);
+        if(concept.value() < 0.9) {
+            model = Client.getDefaultModels().foodModel();
+            Response = model.predict()
+                    .withInputs(ClarifaiInput.forImage(ClarifaiImage.of(byteArray)))
+                    .executeSync();
+            predictions = Response.get();
+            concept = predictions.get(0).data().get(0);
+            if(concept.value() < 0.9) {
+                model = Client.getDefaultModels().generalModel();
+                Response = model.predict()
+                        .withInputs(ClarifaiInput.forImage(ClarifaiImage.of(byteArray)))
+                        .executeSync();
+                predictions = Response.get();
+                concept = predictions.get(0).data().get(0);
+            }
+        }
+        if(concept.name().equals("no person")) {
+            concept = predictions.get(0).data().get(1);
+        }
         return concept.name();
     }
 }

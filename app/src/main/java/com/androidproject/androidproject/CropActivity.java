@@ -11,6 +11,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.AsyncTaskLoader;
@@ -25,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidproject.androidproject.Common.Coordinate;
 import com.androidproject.androidproject.Entities.CroppedImage;
@@ -34,9 +36,13 @@ import com.androidproject.androidproject.Infrastructure.TranslationThread;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import clarifai2.dto.input.image.Crop;
 
@@ -44,9 +50,7 @@ public class CropActivity extends AppCompatActivity {
 
     ImageView ImageV;
 
-    LinearLayout TranslateButton;
-
-    FloatingActionButton AddPOIButton;
+    LinearLayout TranslateButton, ChooseObject, RetakeImage;
 
     File imageFile = null;
 
@@ -55,6 +59,8 @@ public class CropActivity extends AppCompatActivity {
     CroppedImage Image;
 
     ArrayList<Pair<Coordinate,Bitmap>> CroppedImagesList;
+
+    static final int TAKE_PICTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +75,9 @@ public class CropActivity extends AppCompatActivity {
 
         TranslateButton = (LinearLayout) findViewById(R.id.Translate);
 
-        AddPOIButton = (FloatingActionButton) findViewById(R.id.AddPOI);
+        ChooseObject = (LinearLayout) findViewById(R.id.chooseObject);
+
+        RetakeImage = (LinearLayout) findViewById(R.id.retakeImage);
 
         String path = getIntent().getStringExtra("Uri");
 
@@ -89,7 +97,7 @@ public class CropActivity extends AppCompatActivity {
             }
         });
 
-        AddPOIButton.setOnClickListener(new View.OnClickListener() {
+        ChooseObject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CropImage.activity(FileProvider.getUriForFile(
@@ -98,6 +106,24 @@ public class CropActivity extends AppCompatActivity {
                                 .getPackageName() + ".provider", imageFile))
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(CropActivity.this);
+            }
+        });
+
+        RetakeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    imageFile = createImageFile();
+                } catch (IOException e) {
+                    Log.d("Error : ", e.getMessage());
+                    return;
+                }
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(
+                        getApplicationContext(),
+                        getApplicationContext()
+                                .getPackageName() + ".provider", imageFile));
+                startActivityForResult(intent, TAKE_PICTURE);
             }
         });
     }
@@ -112,6 +138,25 @@ public class CropActivity extends AppCompatActivity {
                     SaveCroppedImage(result.getUri(), result.getCropPoints());
                 } else {
 
+                }
+                break;
+            case TAKE_PICTURE :
+                if(resultCode == RESULT_OK) {
+                    CroppedImagesList.clear();
+                    RelativeLayout imageLayout = (RelativeLayout) findViewById(R.id.ImageLayout);
+                    for(int i = 0 ; i < imageLayout.getChildCount() ; i++) {
+                        View v = imageLayout.getChildAt(i);
+                        if(v instanceof TextView) {
+                            imageLayout.removeView(v);
+                        }
+                    }
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                    bitmap = BitmapFactory.decodeFile(imageFile.getPath());
+                    ImageV.setImageBitmap(bitmap);
+                } else {
+                    Toast.makeText(this, "Error Occurred", Toast.LENGTH_LONG).show();
+                    break;
                 }
         }
     }
@@ -168,7 +213,6 @@ public class CropActivity extends AppCompatActivity {
             } catch (IOException e) {
                 //TODO open snackbar with error
             }
-            //TranslationThread translationThread = new TranslationThread(CropActivity.this, p.first , p.second, "Nadav");
             TranslationThread translationThread = new TranslationThread(CropActivity.this, p.first , p.second, translation);
             runOnUiThread(translationThread);
             return null;
@@ -187,5 +231,12 @@ public class CropActivity extends AppCompatActivity {
         }
     }
 
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File myFile = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), imageFileName + ".jpg");
+        return myFile;
+    }
 
 }
