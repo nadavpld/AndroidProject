@@ -29,9 +29,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidproject.androidproject.Common.Coordinate;
+import com.androidproject.androidproject.Common.Translation;
 import com.androidproject.androidproject.Entities.CroppedImage;
 import com.androidproject.androidproject.Entities.Image;
 import com.androidproject.androidproject.Infrastructure.ClarifaiHttpClient;
+import com.androidproject.androidproject.Infrastructure.TranslateHttpClient;
 import com.androidproject.androidproject.Infrastructure.TranslationThread;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -43,6 +45,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 import clarifai2.dto.input.image.Crop;
 
@@ -89,6 +92,8 @@ public class CropActivity extends AppCompatActivity {
         ImageV.setImageBitmap(bitmap);
 
         Image.SetPicture(bitmap);
+
+        Image.SetUserId(UUID.randomUUID());
 
         TranslateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,6 +219,9 @@ public class CropActivity extends AppCompatActivity {
                 //TODO open snackbar with error
             }
             TranslationThread translationThread = new TranslationThread(CropActivity.this, p.first , p.second, translation);
+            Image.Translations.add(new Translation(p.first, translation));
+            TranslateHttpClient translateHttpClient = new TranslateHttpClient();
+            translateHttpClient.POST(Image);
             runOnUiThread(translationThread);
             return null;
         }
@@ -231,6 +239,23 @@ public class CropActivity extends AppCompatActivity {
         }
     }
 
+    public void AddTranslation(Coordinate coordinate, String translation) {
+        Translation p = new Translation(coordinate, translation);
+        Image.Translations.add(p);
+    }
+
+    public void RemoveTranslation(Coordinate coordinate) {
+        int index = -1;
+        for(int i = 0 ; i < Image.Translations.size() ; i++) {
+            if((Image.Translations.get(i)).GetCoordinate().equals(coordinate)) {
+                index = i;
+                break;
+            }
+        }
+        if(index != -1) {
+            Image.Translations.remove(index);
+        }
+    }
 
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());

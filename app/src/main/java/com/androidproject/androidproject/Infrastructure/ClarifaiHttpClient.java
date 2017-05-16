@@ -37,20 +37,19 @@ public class ClarifaiHttpClient {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] byteArray = stream.toByteArray();
-        // Use this model to predict, with the image that the user just selected as the input
         ClarifaiResponse<List<ClarifaiOutput<Concept>>> Response = model.predict()
                 .withInputs(ClarifaiInput.forImage(ClarifaiImage.of(byteArray)))
                 .executeSync();
         List<ClarifaiOutput<Concept>> predictions = Response.get();
         Concept concept = predictions.get(0).data().get(0);
-        if(concept.value() < 0.9) {
+        if(concept.value() < 0.95) {
             model = Client.getDefaultModels().foodModel();
             Response = model.predict()
                     .withInputs(ClarifaiInput.forImage(ClarifaiImage.of(byteArray)))
                     .executeSync();
             predictions = Response.get();
             concept = predictions.get(0).data().get(0);
-            if(concept.value() < 0.9) {
+            if(concept.value() < 0.95) {
                 model = Client.getDefaultModels().generalModel();
                 Response = model.predict()
                         .withInputs(ClarifaiInput.forImage(ClarifaiImage.of(byteArray)))

@@ -2,6 +2,7 @@ package com.androidproject.androidproject.Entities;
 
 import android.graphics.Bitmap;
 
+import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 public abstract class Image {
@@ -12,14 +13,21 @@ public abstract class Image {
         Picture = null;
     }
 
-    protected UUID Id;
+    private UUID Id;
 
-    protected UUID UserId;
+    private UUID UserId;
 
-    protected Bitmap Picture;
+    private Bitmap Picture;
+
+    private byte[] ByteArray;
 
     public void SetPicture(Bitmap picture) {
+
         Picture = picture;
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        picture.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        ByteArray = stream.toByteArray();
     }
 
     public Bitmap GetPicture() {
