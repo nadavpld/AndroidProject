@@ -63,6 +63,10 @@ public class CropActivity extends AppCompatActivity {
 
     ArrayList<Pair<Coordinate,Bitmap>> CroppedImagesList;
 
+    TextView Selected = null;
+
+    Integer SelectedObjects = 0;
+
     static final int TAKE_PICTURE = 1;
 
     @Override
@@ -79,6 +83,10 @@ public class CropActivity extends AppCompatActivity {
         TranslateButton = (LinearLayout) findViewById(R.id.Translate);
 
         ChooseObject = (LinearLayout) findViewById(R.id.chooseObject);
+
+        Selected = (TextView) findViewById(R.id.Selected);
+
+        Selected.setText(SelectedObjects.toString());
 
         RetakeImage = (LinearLayout) findViewById(R.id.retakeImage);
 
@@ -141,6 +149,8 @@ public class CropActivity extends AppCompatActivity {
                     CropImage.ActivityResult result = CropImage.getActivityResult(data);
                     DrawRectangle(result.getCropPoints());
                     SaveCroppedImage(result.getUri(), result.getCropPoints());
+                    SelectedObjects++;
+                    Selected.setText(SelectedObjects.toString());
                 } else {
 
                 }
@@ -159,6 +169,8 @@ public class CropActivity extends AppCompatActivity {
                     options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                     bitmap = BitmapFactory.decodeFile(imageFile.getPath());
                     ImageV.setImageBitmap(bitmap);
+                    SelectedObjects = 0;
+                    Selected.setText(SelectedObjects.toString());
                 } else {
                     Toast.makeText(this, "Error Occurred", Toast.LENGTH_LONG).show();
                     break;
