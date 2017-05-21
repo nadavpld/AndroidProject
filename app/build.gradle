@@ -31,5 +31,21 @@ dependencies {
     compile 'com.clarifai.clarifai-api2:core:2.2.6'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.4.0'
     compile 'com.android.support:support-v4:25.3.1'
+
+    compile ('com.google.api-client:google-api-client-android:1.20.0')
+            {
+                exclude group: 'com.google.code.findbugs'
+                exclude module: 'httpclient'
+            }
+    compile ('com.google.http-client:google-http-client-gson:1.20.0')
+            {
+                exclude group: 'com.google.code.findbugs'
+                exclude module: 'httpclient'
+            }
+    compile ('com.google.apis:google-api-services-vision:v1-rev2-1.21.0')
+        {
+            exclude group: 'com.google.code.findbugs'
+        }
+
     testCompile 'junit:junit:4.12'
 }

@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.FileProvider;
 import android.support.v4.util.Pair;
@@ -33,6 +34,7 @@ import com.androidproject.androidproject.Common.Translation;
 import com.androidproject.androidproject.Entities.CroppedImage;
 import com.androidproject.androidproject.Entities.Image;
 import com.androidproject.androidproject.Infrastructure.ClarifaiHttpClient;
+import com.androidproject.androidproject.Infrastructure.GoogleVisionClient;
 import com.androidproject.androidproject.Infrastructure.TranslateHttpClient;
 import com.androidproject.androidproject.Infrastructure.TranslationThread;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -223,17 +225,24 @@ public class CropActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Pair<Coordinate, Bitmap>... params) {
             Pair<Coordinate, Bitmap> p = params[0];
-            ClarifaiHttpClient client = new ClarifaiHttpClient(getApplicationContext());
-            String translation = null;
+            //ClarifaiHttpClient client = new ClarifaiHttpClient(getApplicationContext());
+            GoogleVisionClient googleVisionClient = new GoogleVisionClient();
+            String recognition = null;
             try {
-                translation = client.POST(p.second);
-            } catch (IOException e) {
+                //recognition = client.POST(p.second);
+                recognition = googleVisionClient.callCloudVision(p.second);
+            } catch (Exception e) {
                 //TODO open snackbar with error
+                Snackbar.make(findViewById(R.id.CropActivity), "Translation Failed, Please Try Again", Snackbar.LENGTH_LONG).show();
+                return null;
             }
-            TranslationThread translationThread = new TranslationThread(CropActivity.this, p.first , p.second, translation);
-            Image.Translations.add(new Translation(p.first, translation));
-            TranslateHttpClient translateHttpClient = new TranslateHttpClient();
-            translateHttpClient.POST(Image);
+            //TranslateHttpClient translateHttpClient = new TranslateHttpClient();
+            //String translation = translateHttpClient.GetTranslation(recognition);
+//            TranslationThread translationThread = new TranslationThread(CropActivity.this, p.first , p.second, translation);
+//            Image.Translations.add(new Translation(p.first, translation));
+            TranslationThread translationThread = new TranslationThread(CropActivity.this, p.first , p.second, recognition);
+            Image.Translations.add(new Translation(p.first, recognition));
+            // Run the Translation Client on another Thread
             runOnUiThread(translationThread);
             return null;
         }
