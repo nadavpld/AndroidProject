@@ -35,6 +35,7 @@ import com.androidproject.androidproject.Entities.CroppedImage;
 import com.androidproject.androidproject.Entities.Image;
 import com.androidproject.androidproject.Infrastructure.ClarifaiHttpClient;
 import com.androidproject.androidproject.Infrastructure.GoogleVisionClient;
+import com.androidproject.androidproject.Infrastructure.ServerHttpClient;
 import com.androidproject.androidproject.Infrastructure.TranslateHttpClient;
 import com.androidproject.androidproject.Infrastructure.TranslationThread;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -236,13 +237,14 @@ public class CropActivity extends AppCompatActivity {
                 Snackbar.make(findViewById(R.id.CropActivity), "Translation Failed, Please Try Again", Snackbar.LENGTH_LONG).show();
                 return null;
             }
-            //TranslateHttpClient translateHttpClient = new TranslateHttpClient();
-            //String translation = translateHttpClient.GetTranslation(recognition);
+//            TranslateHttpClient translateHttpClient = new TranslateHttpClient();
+//            String translation = translateHttpClient.GetTranslation(recognition);
 //            TranslationThread translationThread = new TranslationThread(CropActivity.this, p.first , p.second, translation);
 //            Image.Translations.add(new Translation(p.first, translation));
             TranslationThread translationThread = new TranslationThread(CropActivity.this, p.first , p.second, recognition);
             Image.Translations.add(new Translation(p.first, recognition));
-            // Run the Translation Client on another Thread
+            ServerHttpClient serverHttpClient = new ServerHttpClient();
+            serverHttpClient.AddImageToServer(Image);
             runOnUiThread(translationThread);
             return null;
         }
@@ -256,7 +258,7 @@ public class CropActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            //TODO close dialog
+            //TODO start translation runner
         }
     }
 

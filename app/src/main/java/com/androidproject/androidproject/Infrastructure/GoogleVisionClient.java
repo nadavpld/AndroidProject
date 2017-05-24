@@ -50,7 +50,6 @@ public class GoogleVisionClient {
                             new BatchAnnotateImagesRequest();
                     batchAnnotateImagesRequest.setRequests(new ArrayList<AnnotateImageRequest>() {{
                         AnnotateImageRequest annotateImageRequest = new AnnotateImageRequest();
-
                         // Add the image
                         Image base64EncodedImage = new Image();
                         // Convert the bitmap to a JPEG
@@ -62,15 +61,13 @@ public class GoogleVisionClient {
                         // Base64 encode the JPEG
                         base64EncodedImage.encodeContent(imageBytes);
                         annotateImageRequest.setImage(base64EncodedImage);
-
                         // add the features we want
                         annotateImageRequest.setFeatures(new ArrayList<Feature>() {{
                             Feature labelDetection = new Feature();
                             labelDetection.setType("LABEL_DETECTION");
-                            labelDetection.setMaxResults(10);
+                            labelDetection.setMaxResults(3);
                             add(labelDetection);
                         }});
-
                         // Add the list of one thing to the request
                         add(annotateImageRequest);
                     }});
