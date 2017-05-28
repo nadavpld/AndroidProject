@@ -1,6 +1,8 @@
 package com.androidproject.androidproject.Entities;
 
 import android.graphics.Bitmap;
+import android.util.Base64;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.util.UUID;
@@ -19,15 +21,17 @@ public abstract class Image {
 
     //private Bitmap Picture;
 
-    private byte[] ByteArray;
+    private String image; // Base64
 
     public void SetPicture(Bitmap picture) {
 
         //Picture = picture;
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        picture.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        ByteArray = stream.toByteArray();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        picture.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        image = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        Log.d("Image : " , image);
     }
 
 //    public Bitmap GetPicture() {

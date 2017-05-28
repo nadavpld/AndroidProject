@@ -37,6 +37,7 @@ public class ServerHttpClient {
             Request request = new Request.Builder()
                     .url(url)
                     .post(body)
+                    .addHeader("content-type", "application/json; charset=utf-8")
                     .build();
             try {
                 Response response = okHttpClient.newCall(request).execute();
